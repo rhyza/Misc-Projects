@@ -1,0 +1,37 @@
+<?php include "pageheader.html"; ?> 
+
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Account Page</h2>
+    <p>This page allows users to change password.</p>
+  </div>
+  <div class="col-sm-6">
+    <form name="theForm" action="account.php?act=changePassword" method="POST" onsubmit="return validateForm();">
+      <div class="form-group">
+        <label for="oldpassword">Old Password</label>
+        <input type="oldpassword" class="form-control" id="oldpassword" name="oldpassword" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="newpassword">New Password</label>
+        <input type="newpassword" class="form-control" id="newpassword" name="newpassword" type="text" value="" size="20">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script language="JavaScript">
+/* You can put more javascript here */
+
+function validateForm() {
+  var old = document.forms["theForm"]["oldpassword"].value;
+  var p = document.forms["theForm"]["newpassword"].value;
+  if (old == "" || p == "") {
+    sys_error("Invalid password.");
+    return false;
+  }
+}
+
+</script>
+
+<?php include "pagefooter.html"; ?> 

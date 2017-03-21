@@ -2,10 +2,11 @@
 include "pageheader.html";
 ?> 
 
-<h1> Error: </h1>
+<div class="alert alert-danger" role="alert"><strong>Error: </strong>
 
 <?php 
 // convert nl to html br tag.
 echo nl2br($str);
+echo('</div>');
 include "pagefooter.html";
 ?> 
