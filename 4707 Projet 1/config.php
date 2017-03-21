@@ -2,7 +2,7 @@
 
 /* configurations */
 
-$my_netid = "abc12345";
+$my_netid = "rfv10001";
 
 $db_host = "localhost";
 

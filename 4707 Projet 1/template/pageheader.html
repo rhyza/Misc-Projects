@@ -1,40 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>
-<?php
-    // Example of getting data from php.
-    if (isset($config['title'])) {
-	echo $config['title'];
-    }
-?>
-</title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
 
-<meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+    <?php
+      // Example of getting data from php.
+      if (isset($config['title'])) {
+        echo $config['title'];
+      }
+    ?>
+    </title>
 
-<!-- You can include css and javascript files here -->
-<!-- Examples are shown below. Remember to uncomment.-->
-
-<!-- link href="styles/general.css" rel="stylesheet" type="text/css" /-->
-<!-- script type="text/javascript" src="jquery.min.js" ></script -->
-
-<script language="JavaScript">
-    // You can have javascript code here 
-</script>
-
-</head>
-
-<body>
-
-<h1> Project 1: Simple Website with Access Control </h1>  
-
-<!-- You can use php code to show some of the buttons --> 
-<a href="login.php"><button>Login</button></a>
-<a href="user.php"><button>User</button></a>
-<a href="account.php"><button>Account</button></a>
-<a href="admin.php"><button>Admin</button></a>
-<a href="logout.php"><button>Logout</button></a>
-<BR>
-<div id='main-div'> 
-
+    <!-- Bootstrap -->
+    <link href="template/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Project 1: Simple Website with Access Control</h1>
+      <!-- You can use php code to show some of the buttons --> 
+      <a href="login.php" class="btn btn-primary" role="button">Login</a>
+      <a href="user.php" class="btn btn-primary" role="button">User</a>
+      <a href="account.php" class="btn btn-primary" role="button">Account</a>
+      <a href="admin.php" class="btn btn-primary" role="button">Admin</a>
+      <a href="logout.php" class="btn btn-primary" role="button">Logout</a>
+      <br><br><br>
