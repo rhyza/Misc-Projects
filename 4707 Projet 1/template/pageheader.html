@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+<?php
+    // Example of getting data from php.
+    if (isset($config['title'])) {
+	echo $config['title'];
+    }
+?>
+</title>
+
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- You can include css and javascript files here -->
+<!-- Examples are shown below. Remember to uncomment.-->
+
+<!-- link href="styles/general.css" rel="stylesheet" type="text/css" /-->
+<!-- script type="text/javascript" src="jquery.min.js" ></script -->
+
+<script language="JavaScript">
+    // You can have javascript code here 
+</script>
+
+</head>
+
+<body>
+
+<h1> Project 1: Simple Website with Access Control </h1>  
+
+<!-- You can use php code to show some of the buttons --> 
+<a href="login.php"><button>Login</button></a>
+<a href="user.php"><button>User</button></a>
+<a href="account.php"><button>Account</button></a>
+<a href="admin.php"><button>Admin</button></a>
+<a href="logout.php"><button>Logout</button></a>
+<BR>
+<div id='main-div'> 
+
