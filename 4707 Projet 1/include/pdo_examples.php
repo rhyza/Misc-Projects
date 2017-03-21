@@ -21,14 +21,14 @@ $sql =  "SELECT * FROM $table_name LIMIT 5";
 if (1) {
     $res = $db->query($sql);
     while ($row = $res->fetch()) {
-	print_r($row);
+    print_r($row);
     }
 }
 else {
 
     // another way to get all rows   
     foreach ($db->query($sql) as $row) {
-	var_dump($row);
+    var_dump($row);
     }
 }
 echo "</PRE></BODY></HTML>";
