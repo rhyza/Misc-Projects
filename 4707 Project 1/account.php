@@ -3,7 +3,6 @@
 require_once 'init.php';
 
 if (isset($_COOKIE[$cookie_name])) {
-    echo "<p>".$_COOKIE[$cookie_name]."</p>";
     $sql = "SELECT type FROM users WHERE username = '".$_COOKIE[$cookie_name]."'";
     $result = $conn->query($sql);
 
@@ -19,6 +18,8 @@ if (isset($_COOKIE[$cookie_name])) {
     } else {
         sys_error("You are not authorized to view this page.");
     }
+    
+    echo "<p>".$_COOKIE[$cookie_name]."</p>";
 } else {
     sys_error("You are not authorized to view this page.");
 }

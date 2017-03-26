@@ -10,4 +10,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+if (!isset($_COOKIE[$cookie_name])) {
+	setcookie($cookie_name, "unregistered", 0, $cookie_path, $cookie_domain);
+}
+
 ?>

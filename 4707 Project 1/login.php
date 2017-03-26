@@ -12,11 +12,10 @@ if (isset($_REQUEST['act']) == 'login') {
                 $salt = $row['salt'];
                 $pwhash = hash('sha256', $_POST['password'].$salt);
                 if ($pwhash == $row['password']) {
-
                     setcookie($cookie_name, $userhash, 0, $cookie_path, $cookie_domain);
                     header("Location:".$row['type'].".php");
                 } else { /************************ TODO: FIX ************************/
-                    $failedlogins = $row['failedlogins'] + 1;
+                    /*$failedlogins = $row['failedlogins'] + 1;
                     echo "<script type='text/javascript'>alert('Login attemps:".$failedlogins."');</script>";
                     if ($failedlogins >= 5) {
                         sys_error("You have exceeded the allowed number of login attempts. Please wait 5 minutes before trying again.");                        
@@ -26,7 +25,8 @@ if (isset($_REQUEST['act']) == 'login') {
                     }
                     $setFailures = "UPDATE users SET failedlogins = ".$failedlogins." WHERE username = '".$userhash."'";
                     $noResult = $conn->query($setFailures);
-                    include "$template_dir/login.html";
+                    include "$template_dir/login.html";*/
+                    sys_error("Invalid username or password.");
                 }
             }
         } else {

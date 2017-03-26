@@ -10,7 +10,7 @@ $db_user = "db_".$my_netid;
 $db_pass = $my_netid;
 
 $cookie_path = "/";
-$cookie_domain = ".app.localhost";
+$cookie_domain = NULL;
 $cookie_name = "csp1_".$my_netid;
 
 $template_dir = "template";
