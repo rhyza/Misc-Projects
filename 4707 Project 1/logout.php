@@ -2,8 +2,8 @@
 
 require_once 'init.php';
 
-//setcookie($cookie_name, "", time() - 3600, $cookie_path, $cookie_domain);
-//unset($_COOKIE[$cookie_name]);
+setcookie($cookie_name, "", time() - 3600, $cookie_path, $cookie_domain);
+unset($_COOKIE[$cookie_name]);
 sys_error("You have been logged out.");
 ?>
 
