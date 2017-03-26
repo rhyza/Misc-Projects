@@ -8,9 +8,8 @@
 
     <title>
     <?php
-      // Example of getting data from php.
-      if (isset($config['title'])) {
-        echo $config['title'];
+      if (isset($title)) {
+        echo $title;
       }
     ?>
     </title>
@@ -27,4 +26,15 @@
       <a href="account.php" class="btn btn-primary" role="button">Account</a>
       <a href="admin.php" class="btn btn-primary" role="button">Admin</a>
       <a href="logout.php" class="btn btn-primary" role="button">Logout</a>
-      <br><br><br>
+      <br><h3>Hello
+      <?php
+      if (isset($_COOKIE[$cookie_name])) {
+        if ($_COOKIE[$cookie_name] == "unregistered") {
+          echo "! You are not signed in.";
+        } else {
+          $u = $_COOKIE[$cookie_name];
+          echo " ".$u."!";
+        }
+      }
+      ?>
+    </h3><br>

@@ -1,0 +1,34 @@
+<?php include "pageheader.html"; ?> 
+
+<div class="row">
+  <div class="col-sm-6">
+    <form name="theForm" action="login.php?act=login" method="POST" onsubmit="return validateForm();">
+      <div class="form-group">
+        <label for="usernamer">Username</label>
+        <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" type="text" value="" size="20">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script language="JavaScript">
+/* You can put more javascript here */
+
+function validateForm() {
+  var s = document.forms["theForm"]["username"].value;
+  var p = document.forms["theForm"]["password"].value;
+  if (s == "" || p == "") {
+    alert("Invalid user name and password combinations."); // delete?
+    sys_error("Invalid user name and password combinations.");
+    return false;
+  }
+}
+
+</script>
+
+<?php include "pagefooter.html"; ?> 

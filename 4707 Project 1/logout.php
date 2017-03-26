@@ -26,6 +26,11 @@ if (isset($_REQUEST['act']) == 'login') {
     )));
 }
 else {
+?>
+
+    <div class="alert alert-warning" role="alert"><strong>You have been logged out.</strong></div>
+
+<?php
     include "$template_dir/login.html";
 }
 
