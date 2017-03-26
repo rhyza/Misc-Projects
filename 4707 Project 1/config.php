@@ -5,14 +5,13 @@
 $my_netid = "rfv10001";
 
 $db_host = "localhost";
-
 $db_name = "db_".$my_netid;
 $db_user = "db_".$my_netid;
-$db_pass = "rfv10001";
+$db_pass = $my_netid;
 
 $cookie_path = "/";
-$cookie_domain = "";
-$cookie_name = "csp1_{$my_netid}";
+$cookie_domain = ".app.localhost";
+$cookie_name = "csp1_".$my_netid;
 
 $template_dir = "template";
 $title = "Project 1";

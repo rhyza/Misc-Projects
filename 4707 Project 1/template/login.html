@@ -23,7 +23,6 @@ function validateForm() {
   var s = document.forms["theForm"]["username"].value;
   var p = document.forms["theForm"]["password"].value;
   if (s == "" || p == "") {
-    alert("Invalid user name and password combinations."); // delete?
     sys_error("Invalid user name and password combinations.");
     return false;
   }

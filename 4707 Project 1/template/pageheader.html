@@ -1,3 +1,5 @@
+<?php include 'config.php'; ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -26,15 +28,4 @@
       <a href="account.php" class="btn btn-primary" role="button">Account</a>
       <a href="admin.php" class="btn btn-primary" role="button">Admin</a>
       <a href="logout.php" class="btn btn-primary" role="button">Logout</a>
-      <br><h3>Hello
-      <?php
-      if (isset($_COOKIE[$cookie_name])) {
-        if ($_COOKIE[$cookie_name] == "unregistered") {
-          echo "! You are not signed in.";
-        } else {
-          $u = $_COOKIE[$cookie_name];
-          echo " ".$u."!";
-        }
-      }
-      ?>
-    </h3><br>
+      <br><br><br>

@@ -1,37 +1,10 @@
 <?php
 
-// init.php already included mylib.php and config.php
 require_once 'init.php';
 
-// handles login here
-// Currently, only print the informaton submitted.
-
-if (isset($_REQUEST['act']) == 'login') {
-
-    if (empty($_REQUEST['username'])) {
-        sys_error("Username is not specified.");
-    }
-
-    // Example of setcookie.
-    setcookie($cookie_name, $_POST['username'], 0, $cookie_path);
-
-    //You can see the cookie is set when you load the page again.
-
-    sys_error("Not implemented.\nThe information submitted is:\n".
-    json_encode(array(
-        "_REQUEST" => $_REQUEST,
-        "_POST" => $_POST,
-        "_GET" => $_GET,
-        "_COOKIE" => $_COOKIE,
-    )));
-}
-else {
+//setcookie($cookie_name, "", time() - 3600, $cookie_path, $cookie_domain);
+//unset($_COOKIE[$cookie_name]);
+sys_error("You have been logged out.");
 ?>
 
-    <div class="alert alert-warning" role="alert"><strong>You have been logged out.</strong></div>
-
-<?php
-    include "$template_dir/login.html";
-}
-
-?>
+<div class="alert alert-warning" role="alert"><strong>You have been logged out.</strong></div>

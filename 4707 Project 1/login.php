@@ -3,27 +3,44 @@
 require_once 'init.php';
 
 if (isset($_REQUEST['act']) == 'login') {
+    if (!empty($_REQUEST['username'])) {
+        $userhash = hash('sha256', $_POST['username']);
+        $sql = "SELECT username, password, salt, type, failedlogins FROM users WHERE username = '".$userhash."'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $salt = $row['salt'];
+                $pwhash = hash('sha256', $_POST['password'].$salt);
+                if ($pwhash == $row['password']) {
 
-    if (empty($_REQUEST['username'])) {
-        sys_error("Username is not specified.");
+                    setcookie($cookie_name, $userhash, 0, $cookie_path, $cookie_domain);
+                    header("Location:".$row['type'].".php");
+                } else { /************************ TODO: FIX ************************/
+                    $failedlogins = $row['failedlogins'] + 1;
+                    echo "<script type='text/javascript'>alert('Login attemps:".$failedlogins."');</script>";
+                    if ($failedlogins >= 5) {
+                        sys_error("You have exceeded the allowed number of login attempts. Please wait 5 minutes before trying again.");                        
+                        $failedlogins = 0;
+                        sleep(20);
+                        header("Location:login.php");
+                    }
+                    $setFailures = "UPDATE users SET failedlogins = ".$failedlogins." WHERE username = '".$userhash."'";
+                    $noResult = $conn->query($setFailures);
+                    include "$template_dir/login.html";
+                }
+            }
+        } else {
+            sys_error("Invalid username or password.");
+        }
     } else {
-      $userhash = hash('sha256', $_POST['username']);
-      $pwhash = hash('sha256', $_POST['password']);
-      echo "Username: ".$userhash;
-      echo "Password: ".$pwhash;
-      setcookie($cookie_name, $_POST['username'], 0, $cookie_path);
+        sys_error("Username is not specified.");
     }
-
-    /*sys_error("Not implemented.\nThe information submitted is:\n".
-    json_encode(array(
-        "_REQUEST" => $_REQUEST,
-        "_POST" => $_POST,
-        "_GET" => $_GET,
-        "_COOKIE" => $_COOKIE,
-    )));*/
 }
 else {
     include "$template_dir/login.html";
+    if (isset($_COOKIE[$cookie_name])) {
+        echo "<p>".$_COOKIE[$cookie_name]."</p>";
+    }
 }
 
 ?>
