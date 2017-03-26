@@ -1,5 +1,5 @@
 <?php
-
+// side effect: initializes database and cookies if not set
 require_once 'init.php';
 
 if (isset($_COOKIE[$cookie_name])) {

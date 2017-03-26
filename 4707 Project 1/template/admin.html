@@ -6,5 +6,56 @@
     <p>This page contains information that can be accessed by an admin. An admin can add, delete, change the password of, and change the role of a user.</p>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-6">
+    <h3>Add User</h3>
+    <form name="theForm" action="admin.php?act=addUser" method="POST" onsubmit="return validateForm();">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="password1">Password</label>
+        <input type="password1" class="form-control" id="password1" name="password1" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="password2">Confirm Password</label>
+        <input type="password2" class="form-control" id="password2" name="password2" type="text" value="" size="20">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+  <div class="col-sm-6">
+    <h3>Modify User</h3>
+    <form name="theForm" action="admin.php?act=findUser" method="POST" onsubmit="return validateForm();">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
+      </div>
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+</div>
+
+<script language="JavaScript">
+
+function validateForm() {
+  var validInput = /^[0-9a-zA-Z]+$/;
+  var u = document.forms["theForm"]["username"].value;
+  var p1 = document.forms["theForm"]["password"].value;
+  var p2 = document.forms["theForm"]["password"].value;
+  if (u.length < 4 || p1.length < 6) {
+    alert("Invalid username or password. Username must be at least 4 characters long. Password must at least 6 characters long");
+    return false;
+  } else if (p1 != p2) {
+  	alert("Passwords do not match.");
+  	return false;
+  } else if (!validInput.test(u) || !validInput.test(p1) || !validInput.test(p2)) {
+  	alert("Username and password must be alphanumeric.");
+  	return false;
+  }
+}
+
+</script>
 
 <?php include "pagefooter.html"; ?> 
