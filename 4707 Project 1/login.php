@@ -13,22 +13,24 @@ if (isset($_REQUEST['act']) == 'login') {
             while($row = $result->fetch_assoc()) {
                 $salt = $row['salt'];
                 $pwhash = hash('sha256', $_POST['password'].$salt);
+                $failedlogins = $row['failedlogins'];
+                
+                if ($failedlogins >= 5) {
+                    $failedlogins = 0;
+                    echo "<script type='text/javascript'>alert('Login attemps:".$failedlogins."');</script>";
+                    sleep(300);
+                }
 
                 if ($pwhash == $row['password']) {
                     setcookie($cookie_name, $userhash, 0, $cookie_path, $cookie_domain);
-                    header("Location:".$row['type'].".php");
-                } else { /************************ TODO: FIX ************************/
-                    /*$failedlogins = $row['failedlogins'] + 1;
-                    echo "<script type='text/javascript'>alert('Login attemps:".$failedlogins."');</script>";
-                    if ($failedlogins >= 5) {
-                        sys_error("You have exceeded the allowed number of login attempts. Please wait 5 minutes before trying again.");                        
-                        $failedlogins = 0;
-                        sleep(20);
-                        header("Location:login.php");
-                    }
+                    $failedlogins = 0;
                     $setFailures = "UPDATE users SET failedlogins = ".$failedlogins." WHERE username = '".$userhash."'";
                     $noResult = $conn->query($setFailures);
-                    include "$template_dir/login.html";*/
+                    header("Location:".$row['type'].".php");
+                } else {
+                    $failedlogins = $failedlogins + 1;
+                    $setFailures = "UPDATE users SET failedlogins = ".$failedlogins." WHERE username = '".$userhash."'";
+                    $noResult = $conn->query($setFailures);
                     sys_error("Invalid username or password.");
                 }
             }
