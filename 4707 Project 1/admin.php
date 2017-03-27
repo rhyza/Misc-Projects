@@ -28,7 +28,7 @@ if (isset($_COOKIE[$cookie_name])) {
 /* Add New User */
 if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'addUser') {
     if (strlen($_REQUEST['username']) > 3 && strlen($_REQUEST['newpw1']) > 5 && $_REQUEST['newpw1'] == $_REQUEST['newpw2']) {
-    	if (empty($_REQUEST['newtype']) || strtolower($_REQUEST['newtype']) != "user" || strtolower($_REQUEST['newtype']) != "admin") {
+        if (empty($_REQUEST['newtype']) || strtolower($_REQUEST['newtype']) != "user" || strtolower($_REQUEST['newtype']) != "admin") {
             sys_error("User type not specified.");
         } else {
             $type = strtolower($_REQUEST['newtype']);
@@ -38,7 +38,7 @@ if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'addUser') {
             $result = $conn->query($sql);
 
             if ($result->num_rows <= 0) {
-            	$salt = time();
+                $salt = time();
                 $passhash = hash('sha256', $_POST['newpw1'].$salt);
 
                 $sql2 = "INSERT INTO users (username, password, salt, type, failedlogins) VALUES ('".$userhash."', '".$passhash."', ".time().", '".$type."', 0);";
@@ -46,7 +46,7 @@ if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'addUser') {
 
                 // Success
                 if ($result2) {
-                	include "$template_dir/pageheader.html";
+                    include "$template_dir/pageheader.html";
                     echo "<div class='alert alert-success' role='alert'><strong>New ".$type." successfully created.</strong></div>";
                 }
             } else {
@@ -66,33 +66,38 @@ if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'addUser') {
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-        	// change password
-            if (!empty($_REQUEST['pw1'])) {
-            	if (strlen($_REQUEST['pw1']) > 5 &&  $_REQUEST['pw1'] == $_REQUEST['pw2']) {
-            		$passhash = hash('sha256', $_POST['pw1'].$row['salt']);
+            while($row = $result->fetch_assoc()) {
+                // change password
+                if (!empty($_REQUEST['pw1'])) {
+                    if (strlen($_REQUEST['pw1']) > 5 &&  $_REQUEST['pw1'] == $_REQUEST['pw2']) {
+                        $passhash = hash('sha256', $_POST['pw1'].$row['salt']);
 
-            		$pwsql = "UPDATE users SET password = '".$passhash."' WHERE username = '".$userhash."';";
-            		$pwresult = $conn->query($pwsql);
-            	} else {
-            		sys_error("Invalid password.");
-            	}
-            }
+                        $pwsql = "UPDATE users SET password = '".$passhash."' WHERE username = '".$userhash."';";
+                        $pwresult = $conn->query($pwsql);
+                    } else {
+                        sys_error("Invalid password.");
+                    }
+                }
 
-            // change type
-            if (!empty($_REQUEST['modtype'])) {
-            	if (strtolower($_REQUEST['newtype']) == "user" || strtolower($_REQUEST['newtype']) == "admin") {
-            		$typesql = "UPDATE users SET type = '".$passhash."' WHERE username = '".$userhash."';";
-            		$typeresult = $conn->query($typesql);
-            	} else {
-            		sys_error("Invalid user type.");
-            	}
-            }
+                // change type
+                if (!empty($_REQUEST['modtype'])) {
+                	$t = strtolower($_REQUEST['modtype']);
+                    if ($t == "user" || $t == "admin") {
+                        $typesql = "UPDATE users SET type = '".$t."' WHERE username = '".$userhash."';";
+                        $typeresult = $conn->query($typesql);
+                    } else {
+                        sys_error("Invalid user type.");
+                    }
+                }
 
-            // delete user
-            if ($_REQUEST['delete'] == "DELETE") {
-            	$delsql = "";
-            	$delresult = $conn->query($delsql);
+                // delete user
+                if ($_REQUEST['delete'] == "DELETE") {
+                    $delsql = "DELETE FROM users WHERE username = '".$userhash."';";
+                    $delresult = $conn->query($delsql);
+                }
             }
+            include "$template_dir/pageheader.html";
+            echo "<div class='alert alert-success' role='alert'><strong>Your changes have been made.</strong></div>";
         } else {
             sys_error("User ".$_POST['username']." does not exist.");
         }
