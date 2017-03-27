@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-sm-6">
     <h3>Add User</h3>
-    <form name="theForm" action="admin.php?act=addUser" method="POST" onsubmit="return validateForm();">
+    <form name="theForm1" action="admin.php?act=addUser" method="POST" onsubmit="return validateForm1();">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
@@ -22,12 +22,16 @@
         <label for="password2">Confirm Password</label>
         <input type="password2" class="form-control" id="password2" name="password2" type="text" value="" size="20">
       </div>
+      <div class="form-group">
+        <label for="type">User Type</label>
+        <input type="type" class="form-control" id="type" name="type" type="text" value="" size="20" placeholder="user or admin">
+      </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
   </div>
   <div class="col-sm-6">
-    <h3>Modify User</h3>
-    <form name="theForm" action="admin.php?act=findUser" method="POST" onsubmit="return validateForm();">
+    <h3>Find User to Modify</h3>
+    <form name="theForm2" action="admin.php?act=findUser" method="POST" onsubmit="">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
@@ -39,19 +43,19 @@
 
 <script language="JavaScript">
 
-function validateForm() {
+function validateForm1() {
   var validInput = /^[0-9a-zA-Z]+$/;
-  var u = document.forms["theForm"]["username"].value;
-  var p1 = document.forms["theForm"]["password"].value;
-  var p2 = document.forms["theForm"]["password"].value;
+  var u = document.forms["theForm1"]["username"].value;
+  var p1 = document.forms["theForm1"]["password"].value;
+  var p2 = document.forms["theForm1"]["password"].value;
   if (u.length < 4 || p1.length < 6) {
-    alert("Invalid username or password. Username must be at least 4 characters long. Password must at least 6 characters long");
+    sys_error("Invalid username or password. Username must be at least 4 characters long. Password must at least 6 characters long");
     return false;
   } else if (p1 != p2) {
-  	alert("Passwords do not match.");
+  	sys_error("Passwords do not match.");
   	return false;
   } else if (!validInput.test(u) || !validInput.test(p1) || !validInput.test(p2)) {
-  	alert("Username and password must be alphanumeric.");
+  	sys_error("Username and password must be alphanumeric.");
   	return false;
   }
 }
