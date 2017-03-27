@@ -12,8 +12,12 @@
         <input type="oldpassword" class="form-control" id="oldpassword" name="oldpassword" type="text" value="" size="20">
       </div>
       <div class="form-group">
-        <label for="newpassword">New Password</label>
-        <input type="newpassword" class="form-control" id="newpassword" name="newpassword" type="text" value="" size="20">
+        <label for="newpassword1">New Password</label>
+        <input type="newpassword1" class="form-control" id="newpassword1" name="newpassword1" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="newpassword2">Confirm New Password</label>
+        <input type="newpassword2" class="form-control" id="newpassword2" name="newpassword2" type="text" value="" size="20">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
@@ -24,8 +28,9 @@
 
 function validateForm() {
   var old = document.forms["theForm"]["oldpassword"].value;
-  var p = document.forms["theForm"]["newpassword"].value;
-  if (old == "" || p == "") {
+  var p1 = document.forms["theForm"]["newpassword1"].value;
+  var p2 = document.forms["theForm"]["newpassword2"].value;
+  if (old == "" || p1 == "" || p2 == "") {
     sys_error("Invalid password.");
     return false;
   }

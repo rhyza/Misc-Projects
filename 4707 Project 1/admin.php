@@ -20,7 +20,6 @@ if (isset($_COOKIE[$cookie_name])) {
     } else {
         sys_error("You are not authorized to view this page.");
     }
-    echo "<p>".$_COOKIE[$cookie_name]."</p>";
 } else {
     sys_error("You are not authorized to view this page.");
 }
@@ -81,7 +80,7 @@ if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'addUser') {
 
                 // change type
                 if (!empty($_REQUEST['modtype'])) {
-                	$t = strtolower($_REQUEST['modtype']);
+                    $t = strtolower($_REQUEST['modtype']);
                     if ($t == "user" || $t == "admin") {
                         $typesql = "UPDATE users SET type = '".$t."' WHERE username = '".$userhash."';";
                         $typeresult = $conn->query($typesql);

@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 if (!isset($_COOKIE[$cookie_name])) {
-	setcookie($cookie_name, "unregistered", 0, $cookie_path, $cookie_domain);
+    setcookie($cookie_name, "unregistered", 0, $cookie_path, $cookie_domain);
 }
 
 ?>

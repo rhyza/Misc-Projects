@@ -10,7 +10,9 @@ if (isset($_COOKIE[$cookie_name])) {
         while($row = $result->fetch_assoc()) {
             $type = $row['type'];
             if ($type == "user") {
-                include "$template_dir/account.html";
+                if (!isset($_REQUEST['act']) == 'changePassword') {
+                    include "$template_dir/account.html";
+                }
             } else {
                 sys_error("You are not authorized to view this page.");
             }
@@ -18,25 +20,38 @@ if (isset($_COOKIE[$cookie_name])) {
     } else {
         sys_error("You are not authorized to view this page.");
     }
-    
-    echo "<p>".$_COOKIE[$cookie_name]."</p>";
 } else {
     sys_error("You are not authorized to view this page.");
 }
 
 /*TODO: FIX*/
-if (isset($_REQUEST['act']) == 'changePassword') {
-    if (empty($_REQUEST['oldpassword']) || empty($_REQUEST['newpassword'])) {
-        sys_error("Password is not specified.");
-    }
+if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'changePassword') {
+    if (!empty($_REQUEST['oldpassword']) && strlen($_REQUEST['newpassword1']) > 5 && $_REQUEST['newpassword1'] == $_REQUEST['newpassword2']) {
+        $userhash = $_COOKIE[$cookie_name];
 
-    sys_error("Not implemented.\nThe information submitted is:\n".
-    json_encode(array(
-        "_REQUEST" => $_REQUEST,
-        "_POST" => $_POST,
-        "_GET" => $_GET,
-        "_COOKIE" => $_COOKIE,
-    )));
+        $sql = "SELECT username, password, salt FROM users WHERE username = '".$userhash."'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $salt = $row['salt'];
+                $oldpasshash = hash('sha256', $_REQUEST['oldpassword'].$salt);
+
+                if ($oldpasshash == $row['password']) {
+                    $newpasshash = hash('sha256', $_REQUEST['newpassword1'].$salt);
+
+                    $pwsql = "UPDATE users SET password = '".$newpasshash."' WHERE username = '".$userhash."';";
+                    $pwresult = $conn->query($pwsql);
+                } else {
+                    sys_error("Invalid password.");
+                }
+            }
+            include "$template_dir/pageheader.html";
+            echo "<div class='alert alert-success' role='alert'><strong>Your password has been updated.</strong></div>";
+        }
+    } else {
+        sys_error("Invalid password.");
+    }
 }
 
 ?>

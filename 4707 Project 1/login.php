@@ -5,12 +5,15 @@ require_once 'init.php';
 if (isset($_REQUEST['act']) == 'login') {
     if (!empty($_REQUEST['username'])) {
         $userhash = hash('sha256', $_POST['username']);
+
         $sql = "SELECT username, password, salt, type, failedlogins FROM users WHERE username = '".$userhash."'";
         $result = $conn->query($sql);
+
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $salt = $row['salt'];
                 $pwhash = hash('sha256', $_POST['password'].$salt);
+
                 if ($pwhash == $row['password']) {
                     setcookie($cookie_name, $userhash, 0, $cookie_path, $cookie_domain);
                     header("Location:".$row['type'].".php");
@@ -38,9 +41,6 @@ if (isset($_REQUEST['act']) == 'login') {
 }
 else {
     include "$template_dir/login.html";
-    if (isset($_COOKIE[$cookie_name])) {
-        echo "<p>".$_COOKIE[$cookie_name]."</p>";
-    }
 }
 
 ?>
