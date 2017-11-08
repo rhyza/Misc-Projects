@@ -1,0 +1,41 @@
+<?php include "pageheader.html"; ?> 
+
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Account Page</h2>
+    <p>Welcome! This page allows you, a user, to change your password.</p>
+  </div>
+  <div class="col-sm-6">
+    <form name="theForm" action="account.php?act=changePassword" method="POST" onsubmit="return validateForm();">
+      <div class="form-group">
+        <label for="oldpassword">Old Password</label>
+        <input type="oldpassword" class="form-control" id="oldpassword" name="oldpassword" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="newpassword1">New Password</label>
+        <input type="newpassword1" class="form-control" id="newpassword1" name="newpassword1" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="newpassword2">Confirm New Password</label>
+        <input type="newpassword2" class="form-control" id="newpassword2" name="newpassword2" type="text" value="" size="20">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script language="JavaScript">
+
+function validateForm() {
+  var old = document.forms["theForm"]["oldpassword"].value;
+  var p1 = document.forms["theForm"]["newpassword1"].value;
+  var p2 = document.forms["theForm"]["newpassword2"].value;
+  if (old == "" || p1 == "" || p2 == "") {
+    sys_error("Invalid password.");
+    return false;
+  }
+}
+
+</script>
+
+<?php include "pagefooter.html"; ?> 

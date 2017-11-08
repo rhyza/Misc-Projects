@@ -1,3 +1,5 @@
+<?php include 'config.php'; ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,9 +10,8 @@
 
     <title>
     <?php
-      // Example of getting data from php.
-      if (isset($config['title'])) {
-        echo $config['title'];
+      if (isset($title)) {
+        echo $title;
       }
     ?>
     </title>
@@ -21,10 +22,10 @@
   <body>
     <div class="container">
       <h1>Project 1: Simple Website with Access Control</h1>
-      <!-- You can use php code to show some of the buttons --> 
+      <!-- TODO: use php code to show only some of the buttons -->
       <a href="login.php" class="btn btn-primary" role="button">Login</a>
       <a href="user.php" class="btn btn-primary" role="button">User</a>
       <a href="account.php" class="btn btn-primary" role="button">Account</a>
       <a href="admin.php" class="btn btn-primary" role="button">Admin</a>
       <a href="logout.php" class="btn btn-primary" role="button">Logout</a>
-      <br><br><br>
+      <br><br>

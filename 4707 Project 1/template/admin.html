@@ -1,0 +1,88 @@
+<?php include "pageheader.html";?> 
+
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Admin Page</h2>
+    <p>Welcome to the admin only page! Here you can add a new user or admn, or modify an existing user or admin. You are allowed to modify an existing user's password, user type, or delete the user altogether.</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <h3>Add User</h3>
+    <form name="theForm1" action="admin.php?act=addUser" method="POST" onsubmit="return validateForm1();">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="newpw1">Password</label>
+        <input type="newpw1" class="form-control" id="newpw1" name="newpw1" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="password2">Confirm Password</label>
+        <input type="password2" class="form-control" id="password2" name="password2" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="newtype">User Type</label>
+        <input type="newtype" class="form-control" id="newtype" name="newtype" type="text" value="" size="20" placeholder="user or admin">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+ 
+  <div class="col-sm-6">
+    <h3>Modify User</h3>
+    <p>Only enter info into the fields you want to change.</p>
+    <form name="theForm2" action="admin.php?act=modUser" method="POST" onsubmit="">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" class="form-control" id="username" name="username" type="text" value="" size="20">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="pw1">New Password</label>
+        <input type="pw1" class="form-control" id="pw1" name="pw1" type="text" value="" size="20">
+      </div>
+      <div class="form-group">
+        <label for="pw2">Confirm Password</label>
+        <input type="pw2" class="form-control" id="pw2" name="pw2" type="text" value="" size="20">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="modtype">User Type</label>
+        <input type="modtype" class="form-control" id="modtype" name="modtype" type="text" value="" size="20" placeholder="user or admin">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="delete">Delete User?</label>
+        <p style="color:red;">Type DELETE only if you want to delete this user.</p>
+        <input type="delete" class="form-control" id="delete" name="delete" type="text" value="" size="20" placeholder="">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
+<br><br>
+
+<script language="JavaScript">
+
+function validateForm1() {
+  var validInput = /^[0-9a-zA-Z]+$/;
+  var u = document.forms["theForm1"]["username"].value;
+  var p1 = document.forms["theForm1"]["newpw1"].value;
+  var p2 = document.forms["theForm1"]["newpw2"].value;
+  if (u.length < 4 || p1.length < 6) {
+    sys_error("Invalid username or password. Username must be at least 4 characters long. Password must at least 6 characters long");
+    return false;
+  } else if (p1 != p2) {
+  	sys_error("Passwords do not match.");
+  	return false;
+  } else if (!validInput.test(u) || !validInput.test(p1) || !validInput.test(p2)) {
+  	sys_error("Username and password must be alphanumeric.");
+  	return false;
+  }
+}
+
+</script>
+
+<?php include "pagefooter.html"; ?> 
