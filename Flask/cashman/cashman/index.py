@@ -13,6 +13,6 @@ def get_incomes():
 
 
 @app.route('/incomes', methods=['POST'])
-def add_incomes():
+def add_income():
     incomes.append(request.get_json())
     return '', 204
